@@ -1,5 +1,12 @@
 import java.util.ArrayList;
-
+/**
+ * La classe Pilota è semplicemente un thread, con un ArrayList di piloti 
+ * che li ordina e tien conto della classifica man mano che finiscono
+ * 
+ * @author Canu Leonardo
+ * @version 1.0
+ * @since 17-09-2022
+ */
 public class Pilota extends Thread{
     
     private String nome;
@@ -10,6 +17,12 @@ public class Pilota extends Thread{
 
     private static ArrayList<Pilota> classifica = new ArrayList<>();
 
+    /**     * 
+     * @param n è il nome del pilota
+     * @param s è lo spogiatoio
+     * @param f è il semaforo dello spogliatotio
+     * @param sp è il semaforo della pista
+     */
     public Pilota(String n, Spogliatotio s, Semaforo f, Semaforo sp){
         this.nome = n;
         this.semSpogliatotio = f;
@@ -17,6 +30,14 @@ public class Pilota extends Thread{
         this.semPista = sp;
     }
 
+    /**
+     * Questo metodo  il quello che fa iniziare il thread, compie diverse operazioni:
+     * - Con un semaforo a due "posti", fa entrare ed uscire i piloti dallo spogliatotio
+     * - Con un semaforo a quattro posti, fa entrare ed uscire i piloti dalla pista
+     * - Calcola il loro tempo
+     * - Li inserisce nella classifica 
+     * @return nothing
+     */
     public void run(){
         //=====Il pilota si prepara=====
         semSpogliatotio.Occupa();
@@ -54,12 +75,18 @@ public class Pilota extends Thread{
         classifica.add(0, this);
 
     }
-
+    /**
+     * Questo metodo ritorna il nome e il tempo di un pilota
+     * @return String. 
+     */
     public String toString(){
         return this.nome + ": " + this.tempo + " s.";
     }
 
-
+    /**
+     * Metodo statico che ritorna tutta la classifica in ordine crescente
+     * @return
+     */
     public static String Stampa(){
         String s = "";
         
